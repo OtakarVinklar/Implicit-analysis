@@ -5,7 +5,7 @@ BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # guest working directory
 GUEST_BASE_DIR=/home/scala
 # the name of the docker image to run
-IMAGE=prlprg/prlprg/implicit-analysis-pipeline
+IMAGE=prlprg/implicit-analysis-pipeline
 # the directory where to put all the stuff sbt will download
 CACHE_DIR=cache
 # actual cache directories
@@ -13,6 +13,8 @@ GLOBAL_IVY_DIR=$CACHE_DIR/ivy
 GLOBAL_COURSIER_DIR=$CACHE_DIR/coursier
 GLOBAL_SBT_DIR=$CACHE_DIR/sbt
 GLOBAL_SBT_BOOT_DIR=$GLOBAL_SBT_DIR/boot
+
+CORPORA_DIR=/home/panpuncocha/skola/bt/OOPSLA19-artifact/corpora
 
 if [ $# -lt 1 ]; then
     echo "Usage: $0 <commands to run in the $IMAGE docker image>"
@@ -51,6 +53,7 @@ if [[ ! $WORKDIR = $GUEST_BASE_DIR* ]]; then
     exit 1;
 fi
 
+
 docker run \
        --rm \
        -ti \
@@ -69,7 +72,9 @@ docker run \
        -v $BASE_DIR/$GLOBAL_COURSIER_DIR:$GUEST_BASE_DIR/.cache/coursier \
        -v $BASE_DIR/$CACHE_DIR:$GUEST_BASE_DIR/$CACHE_DIR \
        -v $BASE_DIR/scala-implicits-analysis:$GUEST_BASE_DIR/scala-implicits-analysis \
-       -v $BASE_DIR/corpora:$GUEST_BASE_DIR/corpora \
+       -v $CORPORA_DIR:$GUEST_BASE_DIR/corpora \
        -w $WORKDIR \
        "$IMAGE" \
        "$@"
+
+#       -v $BASE_DIR/corpora:$GUEST_BASE_DIR/corpora \
