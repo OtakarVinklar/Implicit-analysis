@@ -1,0 +1,40 @@
+#!/bin/bash
+
+if [[ $# -eq 1 ]]; then
+	CORPORA_NAME=${1}
+	#script directory
+	SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+	CORPORA_DIR=${SCRIPT_DIR}/corpora/${CORPORA_NAME}
+elif [[ $# == 2 ]] && [[ "$1" == "-f" ]] ; then
+	CORPORA_DIR="$2"
+else
+    echo "Usage: $0 [-f] corporaName"
+		echo "-f option for full path"
+		exit 1
+fi
+
+
+if [[ ! -d ${CORPORA_DIR} ]]; then
+    echo "${CORPORA_DIR} is not a corpora directory"
+		exit 2
+fi
+
+PATH_TO_DB=${CORPORA_DIR}/neo4jDB
+
+if [[ ! -d ${PATH_TO_DB} ]]; then
+    echo "${PATH_TO_DB} corpora does not have neo4j db"
+		exit 3
+fi
+
+# credentials: dbname "neo4j" password "test"
+# user parameter is essential - neo4j would change the user to system
+docker run \
+		--rm \
+    --name neo4j-"$1" \
+		--user="$(id -u)":"$(id -g)" \
+    -p7474:7474 -p7687:7687 \
+    -d \
+    -v ${PATH_TO_DB}/data:/data \
+    -v ${PATH_TO_DB}/logs:/logs \
+    --env NEO4J_AUTH=neo4j/test \
+    neo4j:latest
