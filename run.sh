@@ -14,7 +14,6 @@ GLOBAL_COURSIER_DIR=$CACHE_DIR/coursier
 GLOBAL_SBT_DIR=$CACHE_DIR/sbt
 GLOBAL_SBT_BOOT_DIR=$GLOBAL_SBT_DIR/boot
 
-CORPORA_DIR=/home/panpuncocha/skola/bt/OOPSLA19-artifact/corpora
 
 if [ $# -lt 1 ]; then
     echo "Usage: $0 <commands to run in the $IMAGE docker image>"
@@ -72,9 +71,8 @@ docker run \
        -v $BASE_DIR/$GLOBAL_COURSIER_DIR:$GUEST_BASE_DIR/.cache/coursier \
        -v $BASE_DIR/$CACHE_DIR:$GUEST_BASE_DIR/$CACHE_DIR \
        -v $BASE_DIR/scala-implicits-analysis:$GUEST_BASE_DIR/scala-implicits-analysis \
-       -v $CORPORA_DIR:$GUEST_BASE_DIR/corpora \
+       -v $BASE_DIR/corpora:$GUEST_BASE_DIR/corpora \
        -w $WORKDIR \
        "$IMAGE" \
        "$@"
 
-#       -v $BASE_DIR/corpora:$GUEST_BASE_DIR/corpora \
