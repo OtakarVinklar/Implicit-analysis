@@ -7,6 +7,7 @@ if [[ $# -eq 1 ]]; then
 	CORPORA_DIR=${SCRIPT_DIR}/corpora/${CORPORA_NAME}
 elif [[ $# == 2 ]] && [[ "$1" == "-f" ]] ; then
 	CORPORA_DIR="$2"
+	CORPORA_NAME=""
 else
     echo "Usage: $0 [-f] corporaName"
 		echo "-f option for full path"
@@ -30,7 +31,7 @@ fi
 # user parameter is essential - neo4j would change the user to system
 docker run \
 		--rm \
-    --name neo4j-"$1" \
+    --name neo4j-"${CORPORA_NAME}" \
 		--user="$(id -u)":"$(id -g)" \
     -p7474:7474 -p7687:7687 \
     -d \
