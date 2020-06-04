@@ -71,6 +71,7 @@ docker run \
        -v $BASE_DIR/$GLOBAL_COURSIER_DIR:$GUEST_BASE_DIR/.cache/coursier \
        -v $BASE_DIR/$CACHE_DIR:$GUEST_BASE_DIR/$CACHE_DIR \
        -v $BASE_DIR/scala-implicits-analysis:$GUEST_BASE_DIR/scala-implicits-analysis \
+			 -v $BASE_DIR/example:$GUEST_BASE_DIR/example \
        -v $BASE_DIR/corpora:$GUEST_BASE_DIR/corpora \
        -w $WORKDIR \
        "$IMAGE" \
