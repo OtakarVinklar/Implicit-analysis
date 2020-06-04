@@ -1,5 +1,4 @@
-
-# Manual for trying out import on example input
+## Manual for trying out the import
 
 ```bash
 git clone https://github.com/OtakarVinklar/Implicit-analysis-wrapper
