@@ -5,7 +5,7 @@ git clone https://github.com/OtakarVinklar/Implicit-analysis-wrapper
 cd Implicits-analysis-wrapper
 # Downloading scala-implicits-analysis project
 # inside the Implicit-analysis-wrapper project
-git clone --single-branch --branch new-neo4j-cache https://github.com/PRL-PRG/scala-implicits-analysis
+git clone --single-branch --branch new-neo4j https://github.com/PRL-PRG/scala-implicits-analysis
 
 # building docker image prlprg/implicit-analysis-pipeline
 make -C docker
